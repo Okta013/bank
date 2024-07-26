@@ -2,11 +2,13 @@ package ru.anikeeva.bank.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import ru.anikeeva.bank.dto.ClientDTO;
 import ru.anikeeva.bank.entity.Client;
 import ru.anikeeva.bank.repository.ClientRepository;
 import ru.anikeeva.bank.utils.MappingUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -19,24 +21,27 @@ public class ClientService {
         this.mappingUtils = mappingUtils;
     }
 
-    public Client createClient(Client client) {
-        return clientRepository.save(client);
+    public ClientDTO createClient(ClientDTO clientDTO) {
+        Client client = mappingUtils.mapToClientEntity(clientDTO);
+        client = clientRepository.save(client);
+        return mappingUtils.mapToClientDto(client);
     }
 
-    public Client getClientById(Long id) {
-        return clientRepository.findById(id).orElseThrow(() -> new RuntimeException("Client not found"));
+    public ClientDTO getClientById(Long id) {
+        return mappingUtils.mapToClientDto(clientRepository.findById(id).orElse(new Client()));
     }
 
-    public List<Client> getAllClients() {
-        return clientRepository.findAll();
+    public List<ClientDTO> getAllClients() {
+        return clientRepository.findAll().stream().map(mappingUtils::mapToClientDto).collect(Collectors.toList());
     }
 
-    public Client updateClient(Long id, Client updatedClient) {
-        Client client = getClientById(id);
-        client.setName(updatedClient.getName());
-        client.setPhoneNumber(updatedClient.getPhoneNumber());
-        client.setBalance(updatedClient.getBalance());
-        return clientRepository.save(client);
+    public ClientDTO updateClient(Long id, ClientDTO clientDTO) {
+        Client client = clientRepository.findById(id).orElseThrow(() -> new RuntimeException("Client not found"));;
+        client.setName(clientDTO.getName());
+        client.setPhoneNumber(clientDTO.getPhoneNumber());
+        client.setBalance(clientDTO.getBalance());
+        clientRepository.save(client);
+        return mappingUtils.mapToClientDto(client);
     }
 
     public void deleteClient(Long id) {

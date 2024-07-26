@@ -1,6 +1,7 @@
 package ru.anikeeva.bank.controller;
 
 import org.springframework.web.bind.annotation.*;
+import ru.anikeeva.bank.dto.ClientDTO;
 import ru.anikeeva.bank.entity.Client;
 import ru.anikeeva.bank.service.ClientService;
 
@@ -16,23 +17,23 @@ public class ClientController {
     }
 
     @PostMapping
-    public Client createClient(@RequestBody Client client) {
-        return clientService.createClient(client);
+    public ClientDTO createClient(@RequestBody ClientDTO clientDTO) {
+        return clientService.createClient(clientDTO);
     }
 
     @GetMapping("/{id}")
-    public Client getClientById(@PathVariable Long id) {
+    public ClientDTO getClientById(@PathVariable Long id) {
         return clientService.getClientById(id);
     }
 
     @GetMapping
-    public List<Client> getAllClients() {
+    public List<ClientDTO> getAllClients() {
         return clientService.getAllClients();
     }
 
     @PutMapping("/{id}")
-    public Client updateClient(@PathVariable Long id, @RequestBody Client client) {
-        return clientService.updateClient(id, client);
+    public ClientDTO updateClient(@PathVariable Long id, @RequestBody ClientDTO clientDTO) {
+        return clientService.updateClient(id, clientDTO);
     }
 
     @DeleteMapping("/{id}")

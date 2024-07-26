@@ -1,6 +1,7 @@
 package ru.anikeeva.bank.controller;
 
 import org.springframework.web.bind.annotation.*;
+import ru.anikeeva.bank.dto.PaymentDTO;
 import ru.anikeeva.bank.entity.Payment;
 import ru.anikeeva.bank.service.PaymentService;
 
@@ -16,8 +17,8 @@ public class PaymentController {
     }
 
     @PostMapping
-    public Payment createPayment(@RequestBody Payment payment) {
-        return paymentService.createPayment(payment);
+    public PaymentDTO createPayment(@RequestBody PaymentDTO paymentDTO) {
+        return paymentService.createPayment(paymentDTO);
     }
 
     @PostMapping("/transfer")
