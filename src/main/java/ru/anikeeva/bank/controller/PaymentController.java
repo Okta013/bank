@@ -2,7 +2,6 @@ package ru.anikeeva.bank.controller;
 
 import org.springframework.web.bind.annotation.*;
 import ru.anikeeva.bank.dto.PaymentDTO;
-import ru.anikeeva.bank.entity.Payment;
 import ru.anikeeva.bank.service.PaymentService;
 
 import java.math.BigDecimal;

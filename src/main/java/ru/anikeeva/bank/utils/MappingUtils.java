@@ -31,7 +31,7 @@ public class MappingUtils {
         payment.setId(dto.getId());
         payment.setDate(dto.getDate());
         payment.setAmount(dto.getAmount());
-        payment.setRecipient(dto.getRecipient());
+        //payment.setRecipient(dto.getRecipient());
         payment.setMessage(dto.getMessage());
         return payment;
     }
@@ -41,7 +41,7 @@ public class MappingUtils {
         dto.setId(payment.getId());
         dto.setDate(payment.getDate());
         dto.setAmount(payment.getAmount());
-        dto.setRecipient(payment.getRecipient());
+        //dto.setRecipient(payment.getRecipient());
         dto.setMessage(payment.getMessage());
         return dto;
     }

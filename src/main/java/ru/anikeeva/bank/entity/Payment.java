@@ -13,8 +13,22 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name="date")
     private LocalDateTime date;
+
+    @Column(name="amount")
     private BigDecimal amount;
-    private String recipient;
+    //private String recipient;
+
+    @Column(name="message")
     private String message;
+
+    @ManyToOne
+    @JoinColumn(name = "sender_id")
+    private Client sender;
+
+    @ManyToOne
+    @JoinColumn(name = "recipient_id")
+    private Client recipient;
 }

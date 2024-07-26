@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import ru.anikeeva.bank.dto.ClientDTO;
 import ru.anikeeva.bank.dto.PaymentDTO;
-import ru.anikeeva.bank.entity.Client;
 import ru.anikeeva.bank.entity.Payment;
 import ru.anikeeva.bank.repository.PaymentRepository;
 import ru.anikeeva.bank.utils.MappingUtils;
@@ -48,7 +47,8 @@ public class PaymentService {
         PaymentDTO paymentDTO = new PaymentDTO();
         paymentDTO.setDate(LocalDateTime.now());
         paymentDTO.setAmount(amount);
-        paymentDTO.setRecipient(recipient.getName());
+        paymentDTO.setRecipientId(recipient.getId());
+        paymentDTO.setSenderId(sender.getId());
         paymentDTO.setMessage("Transfer from " + sender.getName());
         mappingUtils.mapToPaymentEntity(createPayment(paymentDTO));
     }

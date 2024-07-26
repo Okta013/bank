@@ -10,6 +10,7 @@ public class PaymentDTO {
     private Long id;
     private LocalDateTime date;
     private BigDecimal amount;
-    private String recipient;
     private String message;
+    private Long senderId;
+    private Long recipientId;
 }
