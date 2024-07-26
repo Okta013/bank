@@ -3,6 +3,7 @@ package ru.anikeeva.bank.service;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import ru.anikeeva.bank.dto.ClientDTO;
+import ru.anikeeva.bank.dto.PaymentDTO;
 import ru.anikeeva.bank.entity.Client;
 import ru.anikeeva.bank.repository.ClientRepository;
 import ru.anikeeva.bank.utils.MappingUtils;
@@ -36,7 +37,7 @@ public class ClientService {
     }
 
     public ClientDTO updateClient(Long id, ClientDTO clientDTO) {
-        Client client = clientRepository.findById(id).orElseThrow(() -> new RuntimeException("Client not found"));;
+        Client client = clientRepository.findById(id).orElseThrow(() -> new RuntimeException("Client not found"));
         client.setName(clientDTO.getName());
         client.setPhoneNumber(clientDTO.getPhoneNumber());
         client.setBalance(clientDTO.getBalance());
@@ -47,4 +48,8 @@ public class ClientService {
     public void deleteClient(Long id) {
         clientRepository.deleteById(id);
     }
+
+//    public List<PaymentDTO> getOutgoingPayments(Long id) {
+//
+//    }
 }

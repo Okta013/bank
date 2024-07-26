@@ -5,6 +5,7 @@ import ru.anikeeva.bank.dto.PaymentDTO;
 import ru.anikeeva.bank.service.PaymentService;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/payments")
@@ -23,5 +24,15 @@ public class PaymentController {
     @PostMapping("/transfer")
     public void transferMoney(@RequestParam Long senderId, @RequestParam Long recipientId, @RequestParam BigDecimal amount) {
         paymentService.transferMoney(senderId, recipientId, amount);
+    }
+
+    @GetMapping("/outgoing/{senderId}")
+    public List<PaymentDTO> getOutgoingPayments(@PathVariable Long senderId) {
+        return paymentService.getOutgoingPayments(senderId);
+    }
+
+    @GetMapping("/incoming/{recipientId}")
+    public List<PaymentDTO> getIncomingPaymentsByRecipient(@PathVariable Long recipientId) {
+        return paymentService.getIncomingPayments(recipientId);
     }
 }

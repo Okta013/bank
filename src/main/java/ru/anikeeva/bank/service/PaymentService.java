@@ -4,12 +4,16 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import ru.anikeeva.bank.dto.ClientDTO;
 import ru.anikeeva.bank.dto.PaymentDTO;
+import ru.anikeeva.bank.entity.Client;
 import ru.anikeeva.bank.entity.Payment;
+import ru.anikeeva.bank.repository.ClientRepository;
 import ru.anikeeva.bank.repository.PaymentRepository;
 import ru.anikeeva.bank.utils.MappingUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -17,11 +21,13 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final ClientService clientService;
     private final MappingUtils mappingUtils;
+    private final ClientRepository clientRepository;
 
-    public PaymentService(PaymentRepository paymentRepository, ClientService clientService, MappingUtils mappingUtils) {
+    public PaymentService(PaymentRepository paymentRepository, ClientService clientService, MappingUtils mappingUtils, ClientRepository clientRepository) {
         this.paymentRepository = paymentRepository;
         this.clientService = clientService;
         this.mappingUtils = mappingUtils;
+        this.clientRepository = clientRepository;
     }
 
     public PaymentDTO createPayment(PaymentDTO paymentDTO) {
@@ -51,5 +57,17 @@ public class PaymentService {
         paymentDTO.setSenderId(sender.getId());
         paymentDTO.setMessage("Transfer from " + sender.getName());
         mappingUtils.mapToPaymentEntity(createPayment(paymentDTO));
+    }
+
+    public List<PaymentDTO> getOutgoingPayments(Long senderId) {
+        Client sender = clientRepository.findById(senderId).orElseThrow(() -> new RuntimeException("Client not found"));
+        List<Payment> outgoingPayments = paymentRepository.findAllBySender(sender);
+        return outgoingPayments.stream().map(mappingUtils::mapToPaymentDto).collect(Collectors.toList());
+    }
+
+    public List<PaymentDTO> getIncomingPayments(Long recipientId) {
+        Client recipient = clientRepository.findById(recipientId).orElseThrow(() -> new RuntimeException("Client not found"));
+        List<Payment> incomingPayments = paymentRepository.findAllByRecipient(recipient);
+        return incomingPayments.stream().map(mappingUtils::mapToPaymentDto).collect(Collectors.toList());
     }
 }
