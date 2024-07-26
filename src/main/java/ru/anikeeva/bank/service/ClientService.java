@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import ru.anikeeva.bank.entity.Client;
 import ru.anikeeva.bank.repository.ClientRepository;
+import ru.anikeeva.bank.utils.MappingUtils;
 
 import java.util.List;
 
@@ -11,9 +12,11 @@ import java.util.List;
 @Transactional
 public class ClientService {
     private final ClientRepository clientRepository;
+    private final MappingUtils mappingUtils;
 
-    public ClientService(ClientRepository clientRepository) {
+    public ClientService(ClientRepository clientRepository, MappingUtils mappingUtils) {
         this.clientRepository = clientRepository;
+        this.mappingUtils = mappingUtils;
     }
 
     public Client createClient(Client client) {

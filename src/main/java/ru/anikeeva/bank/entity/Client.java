@@ -11,8 +11,15 @@ import java.math.BigDecimal;
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Long id;
+
+    @Column(name="name")
     private String name;
+
+    @Column(name="phone")
     private String phoneNumber;
+
+    @Column(name="balance")
     private BigDecimal balance;
 }
