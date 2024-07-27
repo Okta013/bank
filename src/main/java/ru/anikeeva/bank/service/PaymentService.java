@@ -30,8 +30,12 @@ public class PaymentService {
         this.clientRepository = clientRepository;
     }
 
-    public PaymentDTO createPayment(PaymentDTO paymentDTO) {
+    public PaymentDTO createPayment(PaymentDTO paymentDTO, Long senderId, Long recipientId) {
+        Client sender = clientRepository.findById(senderId).orElseThrow(() -> new RuntimeException("Sender not found"));
+        Client recipient = clientRepository.findById(recipientId).orElseThrow(() -> new RuntimeException("Recipient not found"));
         Payment payment = mappingUtils.mapToPaymentEntity(paymentDTO);
+        payment.setSender(sender);
+        payment.setRecipient(recipient);
         payment = paymentRepository.save(payment);
         return mappingUtils.mapToPaymentDto(payment);
     }
@@ -56,7 +60,7 @@ public class PaymentService {
         paymentDTO.setRecipientId(recipient.getId());
         paymentDTO.setSenderId(sender.getId());
         paymentDTO.setMessage("Transfer from " + sender.getName());
-        mappingUtils.mapToPaymentEntity(createPayment(paymentDTO));
+        mappingUtils.mapToPaymentEntity(createPayment(paymentDTO, senderId, recipientId));
     }
 
     public List<PaymentDTO> getOutgoingPayments(Long senderId) {

@@ -17,8 +17,10 @@ public class PaymentController {
     }
 
     @PostMapping
-    public PaymentDTO createPayment(@RequestBody PaymentDTO paymentDTO) {
-        return paymentService.createPayment(paymentDTO);
+    public PaymentDTO createPayment(@RequestBody PaymentDTO paymentDTO,
+                                    @RequestParam("senderId") Long senderId,
+                                    @RequestParam("recipientId") Long recipientId) {
+        return paymentService.createPayment(paymentDTO, senderId, recipientId);
     }
 
     @PostMapping("/transfer")
