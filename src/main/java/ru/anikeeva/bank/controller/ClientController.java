@@ -1,5 +1,7 @@
 package ru.anikeeva.bank.controller;
 
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.anikeeva.bank.dto.ClientDTO;
 import ru.anikeeva.bank.entity.Client;
@@ -17,7 +19,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ClientDTO createClient(@RequestBody ClientDTO clientDTO) {
+    public ClientDTO createClient(@RequestBody @Valid ClientDTO clientDTO, BindingResult bindingResult) {
         return clientService.createClient(clientDTO);
     }
 
@@ -32,7 +34,7 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    public ClientDTO updateClient(@PathVariable Long id, @RequestBody ClientDTO clientDTO) {
+    public ClientDTO updateClient(@PathVariable Long id, @RequestBody @Valid ClientDTO clientDTO, BindingResult bindingResult) {
         return clientService.updateClient(id, clientDTO);
     }
 
