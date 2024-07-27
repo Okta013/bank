@@ -20,6 +20,9 @@ public class ClientController {
 
     @PostMapping
     public ClientDTO createClient(@RequestBody @Valid ClientDTO clientDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return clientDTO;
+        }
         return clientService.createClient(clientDTO);
     }
 
@@ -35,6 +38,9 @@ public class ClientController {
 
     @PutMapping("/{id}")
     public ClientDTO updateClient(@PathVariable Long id, @RequestBody @Valid ClientDTO clientDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return clientDTO;
+        }
         return clientService.updateClient(id, clientDTO);
     }
 
