@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="create-table-payments" author="Ananan">
+        <createTable tableName="payments">
+            <column name="id" type="serial">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="numeric(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message" type="varchar"/>
+            <column name="sender_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_payment_sender" references="clients(id)"/>
+            </column>
+            <column name="recipient_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_payment_recipient" references="clients(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

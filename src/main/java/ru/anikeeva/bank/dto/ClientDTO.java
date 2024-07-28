@@ -15,7 +15,6 @@ public class ClientDTO {
     private String name;
 
     @NotBlank(message = "Phone number shouldn't be empty")
-    @Size(min=12, max=12, message = "Phone number should contain 12 symbols")
     private String phoneNumber;
 
     private BigDecimal balance;
