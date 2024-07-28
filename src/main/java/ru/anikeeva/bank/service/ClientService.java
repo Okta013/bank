@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.anikeeva.bank.dto.ClientDTO;
 import ru.anikeeva.bank.dto.PaymentDTO;
 import ru.anikeeva.bank.entity.Client;
+import ru.anikeeva.bank.exception.CustomException;
 import ru.anikeeva.bank.repository.ClientRepository;
 import ru.anikeeva.bank.utils.MappingUtils;
 
@@ -37,7 +38,7 @@ public class ClientService {
     }
 
     public ClientDTO updateClient(Long id, ClientDTO clientDTO) {
-        Client client = clientRepository.findById(id).orElseThrow(() -> new RuntimeException("Client not found"));
+        Client client = clientRepository.findById(id).orElseThrow(() -> new CustomException("Client not found"));
         client.setName(clientDTO.getName());
         client.setPhoneNumber(clientDTO.getPhoneNumber());
         client.setBalance(clientDTO.getBalance());

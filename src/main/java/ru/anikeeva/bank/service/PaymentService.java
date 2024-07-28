@@ -6,6 +6,7 @@ import ru.anikeeva.bank.dto.ClientDTO;
 import ru.anikeeva.bank.dto.PaymentDTO;
 import ru.anikeeva.bank.entity.Client;
 import ru.anikeeva.bank.entity.Payment;
+import ru.anikeeva.bank.exception.CustomException;
 import ru.anikeeva.bank.repository.ClientRepository;
 import ru.anikeeva.bank.repository.PaymentRepository;
 import ru.anikeeva.bank.utils.MappingUtils;
@@ -31,8 +32,8 @@ public class PaymentService {
     }
 
     public PaymentDTO createPayment(PaymentDTO paymentDTO, Long senderId, Long recipientId) {
-        Client sender = clientRepository.findById(senderId).orElseThrow(() -> new RuntimeException("Sender not found"));
-        Client recipient = clientRepository.findById(recipientId).orElseThrow(() -> new RuntimeException("Recipient not found"));
+        Client sender = clientRepository.findById(senderId).orElseThrow(() -> new CustomException("Sender not found"));
+        Client recipient = clientRepository.findById(recipientId).orElseThrow(() -> new CustomException("Recipient not found"));
         Payment payment = mappingUtils.mapToPaymentEntity(paymentDTO);
         payment.setSender(sender);
         payment.setRecipient(recipient);
@@ -45,7 +46,7 @@ public class PaymentService {
         ClientDTO recipient = clientService.getClientById(recipientId);
 
         if (sender.getBalance().compareTo(amount) < 0) {
-            throw new RuntimeException("Insufficient funds in the sender's account");
+            throw new CustomException("Insufficient funds in the sender's account");
         }
 
         sender.setBalance(sender.getBalance().subtract(amount));
@@ -64,13 +65,13 @@ public class PaymentService {
     }
 
     public List<PaymentDTO> getOutgoingPayments(Long senderId) {
-        Client sender = clientRepository.findById(senderId).orElseThrow(() -> new RuntimeException("Client not found"));
+        Client sender = clientRepository.findById(senderId).orElseThrow(() -> new CustomException("Client not found"));
         List<Payment> outgoingPayments = paymentRepository.findAllBySender(sender);
         return outgoingPayments.stream().map(mappingUtils::mapToPaymentDto).collect(Collectors.toList());
     }
 
     public List<PaymentDTO> getIncomingPayments(Long recipientId) {
-        Client recipient = clientRepository.findById(recipientId).orElseThrow(() -> new RuntimeException("Client not found"));
+        Client recipient = clientRepository.findById(recipientId).orElseThrow(() -> new CustomException("Client not found"));
         List<Payment> incomingPayments = paymentRepository.findAllByRecipient(recipient);
         return incomingPayments.stream().map(mappingUtils::mapToPaymentDto).collect(Collectors.toList());
     }
