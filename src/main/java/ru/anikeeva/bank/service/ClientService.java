@@ -50,7 +50,4 @@ public class ClientService {
         clientRepository.deleteById(id);
     }
 
-//    public List<PaymentDTO> getOutgoingPayments(Long id) {
-//
-//    }
 }
