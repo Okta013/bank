@@ -9,7 +9,6 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import ru.anikeeva.bank.dto.ClientDTO;
-import ru.anikeeva.bank.repository.ClientRepository;
 import ru.anikeeva.bank.service.ClientService;
 
 import java.math.BigDecimal;
