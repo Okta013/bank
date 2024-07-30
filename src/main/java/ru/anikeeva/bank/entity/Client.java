@@ -40,4 +40,10 @@ public class Client {
         this.phoneNumber = phoneNumber;
         this.balance = balance;
     }
+
+    public Client(String name, String phoneNumber, BigDecimal balance) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.balance = balance;
+    }
 }

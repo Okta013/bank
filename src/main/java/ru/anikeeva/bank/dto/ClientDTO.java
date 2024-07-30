@@ -22,4 +22,10 @@ public class ClientDTO {
     private String phoneNumber;
 
     private BigDecimal balance;
+
+    public ClientDTO(String name, String phoneNumber, BigDecimal balance) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.balance = balance;
+    }
 }
