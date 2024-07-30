@@ -48,7 +48,7 @@ public class ClientControllerTest {
     @Test
     void createClient() {
         ClientDTO clientDTOExpected = clientService.createClient(new ClientDTO(
-                5L,"Irina Holodova",
+                "Irina Holodova",
                 "+79523456789", new BigDecimal("123456.78")));
 
         ClientDTO clientDTOActual = clientService.getClientById(5L);
