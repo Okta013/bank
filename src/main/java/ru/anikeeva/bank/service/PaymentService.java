@@ -12,12 +12,12 @@ import ru.anikeeva.bank.repository.PaymentRepository;
 import ru.anikeeva.bank.utils.MappingUtils;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
+
 public class PaymentService {
     private final PaymentRepository paymentRepository;
     private final ClientService clientService;
@@ -41,6 +41,7 @@ public class PaymentService {
         return mappingUtils.mapToPaymentDto(payment);
     }
 
+    @Transactional
     public void transferMoney(Long senderId, Long recipientId, BigDecimal amount) {
         ClientDTO sender = clientService.getClientById(senderId);
         ClientDTO recipient = clientService.getClientById(recipientId);
@@ -56,7 +57,7 @@ public class PaymentService {
         mappingUtils.mapToClientEntity(clientService.updateClient(recipient.getId(), recipient));
 
         PaymentDTO paymentDTO = new PaymentDTO();
-        paymentDTO.setDate(LocalDateTime.now());
+        paymentDTO.setDate(LocalDate.now());
         paymentDTO.setAmount(amount);
         paymentDTO.setRecipientId(recipient.getId());
         paymentDTO.setSenderId(sender.getId());

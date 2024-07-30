@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -15,7 +15,7 @@ public class Payment {
     private Long id;
 
     @Column(name="date")
-    private LocalDateTime date;
+    private LocalDate date;
 
     @Column(name="amount")
     private BigDecimal amount;

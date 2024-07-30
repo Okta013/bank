@@ -25,7 +25,7 @@ class ClientServiceTest {
     private MappingUtils mappingUtils;
 
     @Test
-    void createClient_withValidClient_savesClient() {
+    void createClient() {
 
         ClientDTO clientDTO = new ClientDTO(1L, "Konstantin Frolov",
                 "+79173456789", new BigDecimal("10345.67"));
