@@ -49,27 +49,4 @@ class ClientServiceTest {
         verify(mappingUtils, times(1)).mapToClientDto(client);
     }
 
-//    @Test
-//    void getAllClients_withValidClients_GetClientsList(){
-//        ClientDTO clientDTOOne = new ClientDTO(1L, "Konstantin Frolov",
-//                "+79173456789", new BigDecimal("10345.67"));
-//        ClientDTO clientDTOTwo = new ClientDTO(2L, "Alexey Golovin",
-//                "+79876345678", new BigDecimal("23476.03"));
-//        ClientDTO clientDTOThree = new ClientDTO(3L, "Anna Popova",
-//                "+79378564321", new BigDecimal("74536.21"));
-//        List<ClientDTO> clientsDTO = new ArrayList<>();
-//        clientsDTO.add(clientDTOOne);
-//        clientsDTO.add(clientDTOTwo);
-//        clientsDTO.add(clientDTOThree);
-//        List<Client> clients = new ArrayList<>();
-//
-//        when(clientRepository.findAll()).thenReturn(clients);
-//
-//        List<ClientDTO> result = clientService.getAllClients();
-//
-//        verify(clientRepository, times(1)).findAll();
-//        assertEquals(3,result.size());
-//        assertEquals(clientsDTO, result);
-//    }
-
 }
